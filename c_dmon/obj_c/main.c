@@ -76,9 +76,12 @@ int main(int argc ,char *argv[])
     ctx->priv_data = malloc(dec->priv_data_size);
     char *opt = argv[2];
     char *value = argv[3];
+    //char *opt_2 = argv[4];
+   // char *val_2 = argv[5];
     *(const TestClass**)ctx->priv_data = dec->priv_class;
     //ctx->priv_data = dec->priv_context;
     opt_set(ctx->priv_data,opt,value,0);
+    //opt_set(ctx->priv_data,opt_2,val_2,0);
     ctx->codec->myprintf(ctx);
     ctx->codec->myadd(10,20);
     free(ctx);

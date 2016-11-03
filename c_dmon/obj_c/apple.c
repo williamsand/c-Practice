@@ -12,16 +12,26 @@
 #include"options.h"
 
 typedef struct AppleContext {
-        TestClass *class;
-        int gpu;
-        int cpu;
+    TestClass *class;
+    int gpu;
+    int cpu;
+    int rc;
 }AppleContext;
 
+enum {
+    ABR = 0,
+    CBR,
+    VBR,
+};
 
 #define OFFSET(x) offsetof(AppleContext, x)
 static const TestOption options[] = {
         {"gpu",  "apple set gpu info",  OFFSET(gpu),   OPT_TYPE_INT},
         {"cpu",  "apple set cpu info",  OFFSET(cpu),   OPT_TYPE_INT},
+        {"rc",  "set apple rc mode",  OFFSET(rc),   OPT_TYPE_INT,{.i64=-1},"rc"},
+        {"abr",  "set apple rc mode of abr", 0,  OPT_TYPE_CONST,{.i64=ABR},"rc"},
+        {"cbr",  "set apple rc mode of cbr", 0,  OPT_TYPE_CONST,{.i64=CBR},"rc"},
+        {"vbr",  "set apple rc mode of vbr", 0,  OPT_TYPE_CONST,{.i64=VBR},"rc"},
         {NULL}, 
 };
 
@@ -33,8 +43,9 @@ static const TestClass AppleClass = {
 void apple_printf(PCodecContext *codectx)
 {
     AppleContext *ctx = codectx->priv_data;
-    printf("the pen [gpu]= %d\n",ctx->gpu);
-    printf("the pen_[cpu] = %d\n",ctx->cpu);
+    printf("the apple [gpu]= %d\n",ctx->gpu);
+    printf("the apple_[cpu] = %d\n",ctx->cpu);
+    printf("the apple__[rc_mode] = %d\n",ctx->rc);
 }
 
 int apple_add(int a,int b )

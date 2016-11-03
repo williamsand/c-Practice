@@ -15,13 +15,26 @@ typedef struct PenContext {
       TestClass *class;
       int gpu;
       int cpu;
+      int rc;
 }PenContext;
+
+
+enum {
+        ABR = 0,
+        CBR,
+        VBR,
+
+};
 
 
 #define OFFSET(x) offsetof(PenContext, x)
 static const TestOption options[] = {
-      {"gpu",  "pen set gpu info",  OFFSET(gpu),   OPT_TYPE_INT},
-      {"cpu",  "pen set cpu info",  OFFSET(cpu),   OPT_TYPE_INT},
+    {"gpu",  "pen set gpu info",  OFFSET(gpu),   OPT_TYPE_INT},
+    {"cpu",  "pen set cpu info",  OFFSET(cpu),   OPT_TYPE_INT},
+    {"rc",  "set pen rc mode",  OFFSET(rc),   OPT_TYPE_INT,{.i64=-1},"rc"},
+    {"abr",  "set pen rc mode of abr", 0,  OPT_TYPE_CONST,{.i64=ABR},"rc"},
+    {"cbr",  "set pen rc mode of cbr", 0,  OPT_TYPE_CONST,{.i64=CBR},"rc"},
+    {"vbr",  "set pen rc mode of vbr", 0,  OPT_TYPE_CONST,{.i64=VBR},"rc"},
       {NULL}, 
 };
 
@@ -38,6 +51,7 @@ void pen_printf(PCodecContext  *codectx)
     printf("the pen [gpu]= %d\n",ctx->gpu);
     //printf("the pen_codec of long Name = %s\n",codec->longname);
     printf("the pen_[cpu] = %d\n",ctx->cpu);
+     printf("the pen__[rc_mode] = %d\n",ctx->rc);
 }
 
 int pen_add(int a,int b )

@@ -1,8 +1,8 @@
 /*************************************************************************
-	> File Name: myoption.c
-	> Author: 
-	> Mail: 
-	> Created Time: Mon 24 Oct 2016 04:40:42 AM PDT
+    > File Name: myoption.c
+    > Author: 
+    > Mail: 
+    > Created Time: Mon 24 Oct 2016 04:40:42 AM PDT
  ************************************************************************/
 
 #include<stdio.h>
@@ -26,24 +26,6 @@ static const TestOption options[] = {
     {NULL}, 
 };
 
-
-/*const TestOption *opt_next(const TestOption *class,const TestOption *last)
-{
-    if (!last && class && class[0].name)
-    {
-        printf("enter class  return\n ");
-        printf("class[0].name=%s\n ",class[0].name);
-        printf("class[0].help=%s\n ",class[0].help);
-         return class;
-    }
-    if (last && last[1].name)
-    {
-        printf("enter   last  return\n ");
-         return ++last;
-    }
-    return NULL;
-}*/
-
 const TestOption *opt_next(const void *obj,const TestOption *last)
 {
     const TestClass *class;
@@ -62,8 +44,7 @@ const TestOption *opt_next(const void *obj,const TestOption *last)
     return NULL;
 }
 
-//const TestOption *opt_find(TestOption *src,const char *name)
-const TestOption *opt_find(void *src,const char *name)
+const TestOption *opt_find(void *src,const char *name,const char *unit)
 {
     int num=sizeof(options)/sizeof(TestOption);
     const TestOption *tmp = NULL;
@@ -78,39 +59,39 @@ const TestOption *opt_find(void *src,const char *name)
           printf("no this option\n");
 }
 
-/*int opt_set(TestOption *src, const char *name,const char *val, myContext *target)
+int set_string_to_number(void *obj, void *target_obj, const TestOption *opt, const char *val, void *dst)
 {
-    void *dst;
-    const TestOption *ret = opt_find(src,name);
-          printf("ret = %p\n",ret);
-    dst =(unsigned char *)target + ret->offset;
-          printf("ret->offset = %d\n",ret->offset);
-          printf("src= %p\n",src);
-    switch(ret->type)
+    int num;
+    if( sscanf(val,"%d",&num) == 0 )
     {
-        case OPT_TYPE_INT:
-            *(int*)dst = atoi(val);
-            break;
-        default:
-            break;
+       printf("enter string \n"); 
+       const  TestOption *unit_opt = NULL;
+       unit_opt =  opt_find(target_obj,val,opt->unit);
+          //printf("unit_opt->default_val.i64 = %d\n",unit_opt->default_val.i64 );
+       *(int *)dst = unit_opt->default_val.i64;  
     }
-    return 0;
-}*/
+    else
+    {
+       printf("enter number \n"); 
+       *(int*)dst = atoi(val);
+    }
+}
 
 int opt_set(void *src, const char *name,const char *val, void *target)
 {
     void *dst;
-    const TestOption *ret = opt_find(src,name);
-          printf("ret = %p\n",ret);
+    const TestOption *ret_opt = opt_find(src,name,0);
+          printf("ret = %p\n",ret_opt);
     dst = src;
     target = src;
-    dst =(unsigned char *)target + ret->offset;
-          printf("ret->offset = %d\n",ret->offset);
+    dst =(unsigned char *)target + ret_opt->offset;
+          printf("ret->offset = %d\n",ret_opt->offset);
           printf("src= %p\n",src);
-    switch(ret->type)
+    switch(ret_opt->type)
     {
         case OPT_TYPE_INT:
-            *(int*)dst = atoi(val);
+           // *(int*)dst = atoi(val);
+            set_string_to_number(src,target,ret_opt,val,dst);
             break;
         default:
             break;
