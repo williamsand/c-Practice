@@ -9,6 +9,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include"codec.h"
+#include"level.h"
 
 static myCodec *first_codec = NULL;
 static myCodec **last_codec = &first_codec;
@@ -55,7 +56,8 @@ myCodec *choose_codec_by_name(const char *name)
     {
         if(strcmp(p->name,name) == 0)
         {
-            printf("find out the codec of name is =%s\n",p->name);
+            //printf("find out the codec of name is =%s\n",p->name);
+            my_log(NULL,LEVEL_DEBUG,"find out the codec of name is =%s\n",p->name);
             return p;
         }
         p = p->next;
@@ -76,13 +78,16 @@ int main(int argc ,char *argv[])
     ctx->priv_data = malloc(dec->priv_data_size);
     char *opt = argv[2];
     char *value = argv[3];
-    //char *opt_2 = argv[4];
-   // char *val_2 = argv[5];
+    char *opt_2 = argv[4];
+    char *val_2 = argv[5];
     *(const TestClass**)ctx->priv_data = dec->priv_class;
     //ctx->priv_data = dec->priv_context;
     opt_set(ctx->priv_data,opt,value,0);
-    //opt_set(ctx->priv_data,opt_2,val_2,0);
+    opt_set(ctx->priv_data,opt_2,val_2,0);
     ctx->codec->myprintf(ctx);
     ctx->codec->myadd(10,20);
+    free(ctx->priv_data);
+    ctx->priv_data = NULL;
     free(ctx);
+    ctx = NULL;
 }

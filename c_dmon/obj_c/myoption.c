@@ -11,20 +11,20 @@
 #include <string.h>
 #include"options.h"
 
-typedef struct myContext {
-    TestClass *class;
+//typedef struct myContext {
+ //   TestClass *class;
     //TestClass class;
-    int gpu;
-    int cpu;
-}myContext;
+  //  int gpu;
+   // int cpu;
+//}myContext;
 
 
 #define OFFSET(x) offsetof(myContext, x)
-static const TestOption options[] = {
-    {"gpu",  "set gpu info",  OFFSET(gpu),   OPT_TYPE_INT},
-    {"cpu",  "set cpu info",  OFFSET(cpu),   OPT_TYPE_INT},
-    {NULL}, 
-};
+//static const TestOption options[] = {
+ //   {"gpu",  "set gpu info",  OFFSET(gpu),   OPT_TYPE_INT},
+  //  {"cpu",  "set cpu info",  OFFSET(cpu),   OPT_TYPE_INT},
+   // {NULL}, 
+//};
 
 const TestOption *opt_next(const void *obj,const TestOption *last)
 {
@@ -46,7 +46,7 @@ const TestOption *opt_next(const void *obj,const TestOption *last)
 
 const TestOption *opt_find(void *src,const char *name,const char *unit)
 {
-    int num=sizeof(options)/sizeof(TestOption);
+    //int num=sizeof(options)/sizeof(TestOption);
     const TestOption *tmp = NULL;
     while(tmp = opt_next(src,tmp))
     {

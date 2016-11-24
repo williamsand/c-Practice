@@ -10,6 +10,7 @@
 #include<stddef.h>
 #include"codec.h"
 #include"options.h"
+#include"level.h"
 
 typedef struct PenContext {
       TestClass *class;
@@ -25,7 +26,6 @@ enum {
         VBR,
 
 };
-
 
 #define OFFSET(x) offsetof(PenContext, x)
 static const TestOption options[] = {
@@ -43,15 +43,12 @@ static const TestClass PenClass = {
     .option = options,
 };
 
-//void pen_printf(myCodec *codec)
 void pen_printf(PCodecContext  *codectx)
 {
     PenContext *ctx = codectx->priv_data;
-    //printf("the pen_codec of Name = %s\n",codec->name);
-    printf("the pen [gpu]= %d\n",ctx->gpu);
-    //printf("the pen_codec of long Name = %s\n",codec->longname);
-    printf("the pen_[cpu] = %d\n",ctx->cpu);
-     printf("the pen__[rc_mode] = %d\n",ctx->rc);
+    my_log(ctx,LEVEL_INFO,"the pen [gpu]= %d\n",ctx->gpu);
+    my_log(ctx,LEVEL_INFO,"the pen_[cpu] = %d\n",ctx->cpu);
+    my_log(ctx,LEVEL_DEBUG,"the pen__[rc_mode] = %d\n",ctx->rc);
 }
 
 int pen_add(int a,int b )
