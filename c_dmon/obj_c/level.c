@@ -32,14 +32,12 @@ static void my_vbprintf(LOG_INFO *log_info, const char *fmt, va_list vl_arg)
 
 static void my_format_line(void *ctx,int level,const char *fmt,va_list vl,LOG_INFO *log_info)
 {
-    //TEST *ctest =ctx?(TEST *)ctx:NULL;
     TestClass *tcs = ctx? *(TestClass**)ctx : NULL; 
     if(tcs)
     {
        my_bprint(log_info,"[%s @ %p]",tcs->name,tcs->name);
     }
     my_vbprintf(log_info,fmt,vl);
-    //strcat(log_info->log,"\n");
 }
 
 static void color_puts(int level,const char *str)
@@ -51,13 +49,9 @@ static void my_vlog(void *ctx,int level,const char *fmt,va_list vl)
 {
     LOG_INFO log_info;
     memset(&log_info,0,sizeof(log_info));
-    //char line[1024];
     my_format_line(ctx,level,fmt,vl,&log_info);
-    //snprintf(line,sizeof(line),"%s%s",log_info.name,log_info.log);
     color_puts(34,log_info.name);
     color_puts(level,log_info.log);
-    //memset(&log_info,0,sizeof(log_info));
-    //memset(line,0,sizeof(line));
 }
 
 void my_log(void *ctx,int level,const char *fmt,...)

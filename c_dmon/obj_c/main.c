@@ -56,7 +56,6 @@ myCodec *choose_codec_by_name(const char *name)
     {
         if(strcmp(p->name,name) == 0)
         {
-            //printf("find out the codec of name is =%s\n",p->name);
             my_log(NULL,LEVEL_DEBUG,"find out the codec of name is =%s\n",p->name);
             return p;
         }
@@ -81,7 +80,6 @@ int main(int argc ,char *argv[])
     char *opt_2 = argv[4];
     char *val_2 = argv[5];
     *(const TestClass**)ctx->priv_data = dec->priv_class;
-    //ctx->priv_data = dec->priv_context;
     opt_set(ctx->priv_data,opt,value,0);
     opt_set(ctx->priv_data,opt_2,val_2,0);
     ctx->codec->myprintf(ctx);

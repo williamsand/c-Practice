@@ -53,13 +53,11 @@ void pen_printf(PCodecContext  *codectx)
 
 int pen_add(int a,int b )
 {
-    printf("enter pen add oprator\n");
-    printf("the pen add result is = [%d]\n",a+b);
+    my_log(NULL,LEVEL_DEBUG ,"enter pen add oprator\n");
+    my_log(NULL,LEVEL_INFO,"the pen add result is = [%d]\n",a+b);
     return 0;
 }
 
-//PenContext *PenCtx;
-//PenCtx->class = &PenClass;
 
 myCodec pen_codec = {
     .name = "pen",
@@ -68,7 +66,6 @@ myCodec pen_codec = {
     .myadd = pen_add,
     .priv_data_size = sizeof(PenContext),
     .priv_class = &PenClass,
- //   .priv_context = &PenCtx,
 };
 
 

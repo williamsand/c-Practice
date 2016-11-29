@@ -40,7 +40,6 @@ void apple_printf(PCodecContext *codectx)
 {
     AppleContext *ctx = codectx->priv_data;
     my_log(ctx,LEVEL_INFO,"the apple [gpu]= %d\n",ctx->gpu);
-    //printf("the apple [gpu]= %d\n",ctx->gpu);
     my_log(ctx,LEVEL_INFO,"the apple_[cpu] = %d\n",ctx->cpu);
     my_log(ctx,LEVEL_DEBUG,"the apple__[rc_mode] = %d\n",ctx->rc);
 }

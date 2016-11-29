@@ -14,13 +14,11 @@ struct PCodecContext;
 typedef struct myCodec{
     const char *name;
     const char *longname;
-//    void (*myprintf)(struct myCodec *codec);
     void (*myprintf)( struct PCodecContext  *codectx);
     int (*myadd)(int a,int b);
     struct myCodec *next;
     int priv_data_size;
     const TestClass *priv_class;
-    //void *priv_context;
 }myCodec;
 
 typedef struct PCodecContext{
