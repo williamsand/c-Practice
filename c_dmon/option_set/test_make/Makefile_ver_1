@@ -1,0 +1,19 @@
+SRC_PATH = .
+SRCS = $(wildcard *.c) $(wildcard ${SRC_PATH}/*/*.c) 
+OBJS = $(patsubst %.c,%.o,${SRCS}) 
+
+TARGET = mycodec
+CFLAGS += -I ${SRC_PATH}/common
+
+.PHONY: all test clean
+all: ${TARGET}
+
+${TARGET}: ${OBJS}
+	gcc $^ -o $@ 
+
+test: 
+	@echo ${OBJS}
+
+clean:
+	rm -f ${OBJS}
+	rm -f ${TARGET} 
